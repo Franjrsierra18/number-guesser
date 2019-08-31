@@ -16,7 +16,7 @@ const message = document.querySelector('.message');
 
 let min = 1,
     max = 20,
-    winningNum = 2,
+    winningNum = Math.floor(Math.random() * (max - min)) + min,
     guessesLeft = 3;
 
 minNum.textContent = min;
@@ -28,15 +28,23 @@ submitBtn.addEventListener('click', function (e) {
   if (isNaN(guess) || guess < min || guess > max) {
     message.textContent = `Enter a number between ${min} and ${max}`;
     message.style.color = 'red';
-  } 
-  
-  if (guess !== winningNum) {
-    message.textContent = `Wrong guess. You have left ${guessesLeft} guesses`;
+    inputNum.style.borderColor = 'red';
+  } else if (guess !== winningNum) {
+    message.textContent = `Wrong guess. You have left ${guessesLeft - 1} guesses`;
     message.style.color = 'red';
-    guessesLeft--
+    guessesLeft--;
+    inputNum.style.borderColor = 'red';
   } else {
-    message.textContent = 'Great! You win!!!!';
+    message.textContent = `Great! ${winningNum} is correct, You win!!!!`;
     message.style.color = 'green';
+    inputNum.disabled = true;
+    inputNum.style.borderColor = 'green';
+  }
+
+  if (guessesLeft === 0) {
+    inputNum.disabled = true;
+    message.textContent = 'Game Over, you loose.';
+    submitBtn.value = 'play again';
   }
 
 })
