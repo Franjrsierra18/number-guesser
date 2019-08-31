@@ -30,10 +30,11 @@ submitBtn.addEventListener('click', function (e) {
     message.style.color = 'red';
     inputNum.style.borderColor = 'red';
   } else if (guess !== winningNum) {
-    message.textContent = `Wrong guess. You have left ${guessesLeft - 1} guesses`;
-    message.style.color = 'red';
     guessesLeft--;
+    message.textContent = `Wrong guess. You have left ${guessesLeft} guesses`;
+    message.style.color = 'red';
     inputNum.style.borderColor = 'red';
+    inputNum.value = '';
     if (guessesLeft === 0) {
       inputNum.disabled = true;
       message.textContent = `Game Over, you lost. The correct number was ${winningNum}`;
