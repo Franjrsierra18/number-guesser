@@ -24,7 +24,7 @@ maxNum.textContent = max;
 
 submitBtn.addEventListener('click', function (e) {
   let guess = parseInt(inputNum.value);
-  
+
   if (isNaN(guess) || guess < min || guess > max) {
     message.textContent = `Enter a number between ${min} and ${max}`;
     message.style.color = 'red';
@@ -34,17 +34,18 @@ submitBtn.addEventListener('click', function (e) {
     message.style.color = 'red';
     guessesLeft--;
     inputNum.style.borderColor = 'red';
+    if (guessesLeft === 0) {
+      inputNum.disabled = true;
+      message.textContent = `Game Over, you lost. The correct number was ${winningNum}`;
+      submitBtn.value = 'Play Again';
+      submitBtn.addEventListener('click', function (eve) {
+        document.location.reload(true);
+      });
+    }
   } else {
     message.textContent = `Great! ${winningNum} is correct, You win!!!!`;
     message.style.color = 'green';
     inputNum.disabled = true;
     inputNum.style.borderColor = 'green';
   }
-
-  if (guessesLeft === 0) {
-    inputNum.disabled = true;
-    message.textContent = 'Game Over, you loose.';
-    submitBtn.value = 'play again';
-  }
-
 })
